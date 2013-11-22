@@ -6,32 +6,53 @@ namespace Problem3
     {
         static void Main(string[] args)
         {
-            var number = 13195;
-            var maxPrime = (number - 1) / 2;
+            Console.WriteLine("13195 -> ");
+            Console.WriteLine(CalculateBiggestPrime(13195));
+
+            Console.WriteLine();
+            Console.WriteLine("600851475143 -> ");
+            Console.WriteLine(CalculateBiggestPrime(600851475143));
+
+            Console.ReadKey();
+        }
+
+        private static Int64 CalculateBiggestPrime(Int64 number)
+        {
+            var i = 2;
+            var maybePrime = new Int64();
 
             while (true)
             {
-                var prime = true;
-
-                for (var i = 2; i < maxPrime; i++)
+                if (number % i == 0)
                 {
-                    if (maxPrime % i == 0)
+                    maybePrime = number / i;
+
+                    if (IsPrime(maybePrime))
                     {
-                        prime = false;
                         break;
                     }
                 }
 
-                if (prime)
-                {
-                    Console.WriteLine("The largest prime of {0} is {1}", number, maxPrime);
-                    break;
-                }
-
-                maxPrime--;
+                i++;
             }
 
-            Console.ReadKey();
+            return maybePrime;
+        }
+
+        private static bool IsPrime(Int64 number)
+        {
+            var half = number / 2;
+
+            for (int i = 2; i < half; i++)
+            {
+                if (number % i == 0)
+                {
+                    // Not a prime
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
